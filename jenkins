@@ -7,37 +7,93 @@ pipeline
         {
             steps
             {
-              git 'https://github.com/Ravikumar798/jenkinsfile.git'
+	      script
+	      {
+	        try
+		{
+                  git 'https://github.com/Ravikumar798/jenkinsfile.git'
+		 }
+		catch(exception e1)
+                {
+		  mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: 'jenkins is unable to download from remote github', to: 'github@gmail.com'
+		  exit(1)
+		}
+	      }	 
             }
         } 
         stage('cont build')
         {
          steps
          {
-             sh 'mvn package'
-         }
+	   script
+	    {
+	      try
+	      {
+                sh 'mvn package'
+              }
+	      catch(exception e2) 
+	      {
+	         mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: 'jenkins is unable to build artifact', to: 'maven@gmail.com'
+		 exit(1)
+	      }
+            }
+	  }
         } 
         stage('cont deploy')
         {
             steps
             {
-                deploy adapters: [tomcat9(credentialsId: 'ee329ab3-6634-416e-9558-5e974dec7e8c', path: '', url: 'http://172.31.12.15:8080')], contextPath: 'testapp', war: '**/*.war'
-            }
-        }    
+	     script
+	     {
+	       try
+	       {
+                  deploy adapters: [tomcat9(credentialsId: 'ee329ab3-6634-416e-9558-5e974dec7e8c', path: '', url: 'http://172.31.12.15:8080')], contextPath: 'testapp', war: '**/*.war'
+               }
+	       catch(exception e3)
+	       {
+	          mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: 'jenkins is unable to deploy to tomcat', to: 'middleware@gmail.com'
+                  exit(1)
+	       }
+	      }
+	     }
+
+        }
         stage('cont testing')
         {
             steps
             {
+	     script
+	     {
+	      try
+	      {
                 git'https://github.com/intelliqittrainings/FunctionalTesting.git'
                 sh 'java -jar /var/lib/jenkins/workspace/Declarative/testing.jar'
+	      }
+	      catch(exception e4)
+	      {
+	         mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: 'jenkins is unable to test the salenium', to: 'testing@gmail.com'
+                  exit(1)
+	      }
+	     }
             }
         }
         stage('cont delivery')
         {
             steps
             {
-	     deploy adapters: [tomcat9(credentialsId: 'ee329ab3-6634-416e-9558-5e974dec7e8c', path: '', url: 'http://172.31.13.165:8080')], contextPath: 'prodapp', war: '**/*.war'
-            }
+	     script
+	     {
+	       try
+	       {
+	         deploy adapters: [tomcat9(credentialsId: 'ee329ab3-6634-416e-9558-5e974dec7e8c', path: '', url: 'http://172.31.13.165:8080')], contextPath: 'prodapp', war: '**/*.war'
+               }
+	       catch(exception e5)
+	       {
+	          mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: 'jenkins is unable to test the salenium', to: 'testing@gmail.com'
+                  exit(1)
+	       }
+	     }
+	   }
         }
 
 
