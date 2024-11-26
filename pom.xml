@@ -1,11 +1,5 @@
-
-
-
-<!--changes done to pom.xml file-->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.example.maven-project</groupId>
@@ -33,19 +27,21 @@
       <url>file:///tmp/maven-project-site</url>
     </site>
   </distributionManagement>
+
   <build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.8.1</version> <!-- You can also update the plugin version -->
-      <configuration>
-        <source>1.8</source>
-        <target>1.8</target>
-      </configuration>
-    </plugin>
-  </plugins>
-</build>
+    <plugins>
+      <!-- Compiler Plugin for Java 8 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version> <!-- Ensure the latest stable version -->
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+
+      <!-- Other necessary plugins -->
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
@@ -53,6 +49,7 @@
         </configuration>
       </plugin>
 
+      <!-- Site plugin configuration -->
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
@@ -60,28 +57,22 @@
             <plugin>
               <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
-
             <plugin>
               <artifactId>maven-jxr-plugin</artifactId>
             </plugin>
-
             <plugin>
               <artifactId>maven-javadoc-plugin</artifactId>
             </plugin>
-
             <plugin>
               <artifactId>maven-pmd-plugin</artifactId>
             </plugin>
-
             <plugin>
               <artifactId>maven-surefire-report-plugin</artifactId>
             </plugin>
-
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>findbugs-maven-plugin</artifactId>
             </plugin>
-
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>taglist-maven-plugin</artifactId>
@@ -93,14 +84,10 @@
 
     <pluginManagement>
       <plugins>
+        <!-- Cleaned up plugin versions -->
         <plugin>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>2.8</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>2.3.2</version>
         </plugin>
 
         <plugin>
